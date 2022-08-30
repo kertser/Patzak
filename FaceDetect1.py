@@ -1,3 +1,4 @@
+# General Imports
 import urllib.request
 from matplotlib import pyplot as plt
 from mtcnn.mtcnn import MTCNN
