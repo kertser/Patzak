@@ -1,0 +1,6 @@
+matplotlib
+keras
+tensorflow
+mtcnn
+keras_vggface
+#dlib # another lib for face detect
