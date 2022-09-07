@@ -3,4 +3,9 @@ keras
 tensorflow
 mtcnn
 keras_vggface
+
+## Rpi specific
+#picamera
 #dlib # another lib for face detect
+
+opencv-python

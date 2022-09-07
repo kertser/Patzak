@@ -15,6 +15,7 @@ warnings.filterwarnings(action='ignore')
 tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 
 # Store image from internet as local image
+# This is a helper function
 def store_image(url, local_file_name):
     with urllib.request.urlopen(url) as resource:
         with open(local_file_name, 'wb') as f:
@@ -32,7 +33,6 @@ The keypoints key contains a dictionary containing the features of a face that w
 
 #detector = MTCNN()
 #faces = detector.detect_faces(image)
-
 def highlight_faces(image_path, faces):
   # display image
   image = plt.imread(image_path)
@@ -75,7 +75,7 @@ def extract_face_from_image(image_path, required_size=(224, 224)):
 
   return face_images
 
-extracted_face = extract_face_from_image('iacocca_1.jpg')
+extracted_face = extract_face_from_image('opencv_frame_0.jpg')
 
 # Display the first face from the extracted faces
 plt.imshow(extracted_face[0])
