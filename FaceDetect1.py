@@ -9,6 +9,8 @@ from matplotlib.patches import Rectangle
 from numpy import asarray
 from PIL import Image
 
+from scipy.spatial import distance
+
 # Kill the regular warnings and tensorFlow warnings:
 import warnings
 warnings.filterwarnings(action='ignore')
@@ -48,6 +50,10 @@ def highlight_faces(image_path, faces):
     ax.add_patch(face_border)
   plt.show()
 
+def M_distance(u,v):
+  iv = [[1, 0.5], [0.5, 1]]
+  return distance.mahalanobis(list(u), list(v), iv)
+
 def extract_face_from_image(image_path, required_size=(224, 224)):
   # load image and detect faces
   image = plt.imread(image_path)
@@ -55,7 +61,9 @@ def extract_face_from_image(image_path, required_size=(224, 224)):
   faces = detector.detect_faces(image)
 
   for face in faces:
+      #print(face)
       print(face['keypoints'])
+      print(f"The Mahalanobis distance is :{round(M_distance(face['keypoints']['left_eye'],face['keypoints']['right_eye']),2)}")
 
   face_images = []
 
