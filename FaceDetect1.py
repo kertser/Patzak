@@ -79,4 +79,5 @@ extracted_face = extract_face_from_image('opencv_frame_0.jpg')
 
 # Display the first face from the extracted faces
 plt.imshow(extracted_face[0])
+
 plt.show()
