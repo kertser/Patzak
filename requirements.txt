@@ -6,6 +6,7 @@ keras_vggface
 pandas
 sklearn
 pickle
+scipy
 
 ## Rpi specific
 #picamera
