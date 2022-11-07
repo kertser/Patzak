@@ -3,6 +3,9 @@ keras
 tensorflow
 mtcnn
 keras_vggface
+pandas
+sklearn
+pickle
 
 ## Rpi specific
 #picamera
