@@ -7,6 +7,7 @@ pandas
 sklearn
 pickle
 scipy
+scikeras
 
 ## Rpi specific
 #picamera
