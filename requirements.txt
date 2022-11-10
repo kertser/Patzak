@@ -1,13 +1,13 @@
-matplotlib
+matplotlib==3.6.2
 keras
 tensorflow
-mtcnn
+#mtcnn
 keras_vggface
 pandas
 sklearn
-pickle
-scipy
+scipy==1.9.3
 scikeras
+mtcnn-opencv
 
 ## Rpi specific
 #picamera
