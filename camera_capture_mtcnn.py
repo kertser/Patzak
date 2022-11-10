@@ -6,7 +6,10 @@ import numpy as np
 from keras.models import load_model
 import itertools
 
-pazak = {0:'Pazak',1:'Chatlanin'}
+#from PIL import ImageFont, ImageDraw, Image
+#fontpath = "/Times New Roman Bold.ttc"
+
+pazak = {0:'Patzak detected!',1:'Chatlanin detected!'}
 keypoint_names = ["left_eye", "right_eye", "nose","mouth_left","mouth_right"]
 features = [a+'-'+b for (a,b) in list(itertools.permutations(keypoint_names,2))]
 
@@ -27,6 +30,7 @@ if (video.isOpened() == False):
     print("Web Camera not detected")
 while (True):
     ret, frame = video.read()
+    frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
     if ret == True:
         location = detector.detect_faces(frame)
         if len(location) > 0:
@@ -34,7 +38,6 @@ while (True):
                 x, y, width, height = face['box']
                 x2, y2 = x + width, y + height
                 cv2.rectangle(frame, (x, y), (x2, y2), (0, 0, 255), 4)
-                # print(face['keypoints'])
 
                 keypoints = face['keypoints']
 
@@ -53,21 +56,30 @@ while (True):
                     x2, y2 = normXY((face['keypoints'])[feature.split('-')[1]], x_min, y_min, width,
                                     height)
                     featureVector.append(E_distance((x1, y1), (x2, y2)))
+
                 classPredicted = model.predict(np.asarray([featureVector]))
                 classPredicted = (classPredicted > 0.5)  # sigmoid
 
                 # text
                 text = pazak[classPredicted.item(0)]
                 font = cv2.FONT_HERSHEY_SIMPLEX
-                org = (00, 185)
+                org = (50, 50)
                 fontScale = 1
                 color = (0, 0, 255)
                 thickness = 2
 
-                #image = cv2.putText(frame, text, org, font, fontScale, color, thickness, cv2.LINE_AA, False)
+                frame = cv2.putText(frame, text, org, font, fontScale, color, thickness, cv2.LINE_AA, False)
+
+                """
+                font = ImageFont.truetype(fontpath, 32)
+                img_pil = Image.fromarray(frame)
+                draw = ImageDraw.Draw(img_pil)
+                draw.text((50, 80), "Привет", font=font, fill=(b, g, r, a))
+                frame = np.array(img_pil)
+                """
 
         cv2.imshow("Output",frame)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
+        if cv2.waitKey(1) & 0xFF == 27:#ord('q'):
             break
     else:
         break
