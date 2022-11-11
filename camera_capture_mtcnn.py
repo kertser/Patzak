@@ -5,6 +5,10 @@ from scipy.spatial import distance
 import numpy as np
 from keras.models import load_model
 import itertools
+from statistics import mean
+
+stackdetect = [] # stack of the detected values:
+maxSize = 20 # max size of this stack
 
 #from PIL import ImageFont, ImageDraw, Image
 #fontpath = "/Times New Roman Bold.ttc"
@@ -59,9 +63,14 @@ while (True):
 
                 classPredicted = model.predict(np.asarray([featureVector]))
                 classPredicted = (classPredicted > 0.5)  # sigmoid
+                stackdetect.append(classPredicted.item(0))
+                if len(stackdetect) > maxSize:
+                    stackdetect.pop(stackdetect[0])
+                detected = mean(stackdetect)
 
                 # text
-                text = pazak[classPredicted.item(0)]
+                #text = pazak[classPredicted.item(0)]
+                text = pazak[int(round(detected,0))]
                 font = cv2.FONT_HERSHEY_SIMPLEX
                 org = (50, 50)
                 fontScale = 1
