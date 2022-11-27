@@ -51,6 +51,7 @@ def printText(firstLine,secondLine):
 
 def classifier() -> str:
     ret, frame = video.read()
+    frame = cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
     frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
     if ret == True:
         location = detector.detect_faces(frame)
@@ -118,7 +119,7 @@ try: #init
         
         # init the camera
         detector = MTCNN()
-        video = cv2.VideoCapture(0)
+        video = cv2.VideoCapture(0,cv2.CAP_V4L2)
         
         if (video.isOpened() == False):
             printText('Web Camera','Not Detected')
