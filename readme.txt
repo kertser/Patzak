@@ -10,3 +10,5 @@ trained groups.
 * Working version for embedded system at RPi02W (may be I will arange a docker image for that later on) is patzak.py 
 It is taking about 1 minute to load all the dependencies.
 * Working on client-server version for better speed
+
+#Enable SPI on Rpi0

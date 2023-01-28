@@ -11,6 +11,6 @@ mtcnn-opencv
 
 ## Rpi specific
 #picamera
-#dlib # another lib for face detect
+smbus2
 
 opencv-python

@@ -135,31 +135,41 @@ try: #init
         config.module_exit()
         exit()
     
-    while True:
-        status = config.keybindings()
-        detectedClass = classifier()
-        if detectedClass == 'Patzak':
-            printText('Обнаружен','Пацак!')
-            countNANS = 0
-        elif detectedClass == 'Chatlanin':
-            printText('Обнаружен','Чатланин!')
-            countNANS = 0
-        else:
-            countNANS += 1
-            if countNANS > 20:
-                printText('Наведите Камеру','Не вижу!')
-                countNans = 100
+    status = config.keybindings()
+    while status!="KEY2":
         
         if status == "left": #debug only
             printText('Обнаружен','Пацак!')
         if status == "right": #debug only
             printText('Обнаружен','Чатланин!')
-        if status == "KEY2":
-            video.release()
-            disp.reset()
-            disp.clear()
-            config.module_exit()
-            exit()
+        if status == "center":
+            print('detecting')
+            printText('Наведите Камеру','Detecting!')
+            detectedClass = classifier()
+            if detectedClass == 'Patzak':
+                printText('Обнаружен','Пацак!')
+                #countNANS = 0
+            elif detectedClass == 'Chatlanin':
+                printText('Обнаружен','Чатланин!')
+                #countNANS = 0
+            else:
+                printText('Наведите Камеру','Не вижу!')
+                """
+                countNANS += 1
+                if countNANS > 20:
+                    printText('Наведите Камеру','Не вижу!')
+                    countNans = 100
+                """
+            detectedClass = 'None'
+        
+        status = config.keybindings()
+        
+    print('shutting down, please wait')
+    video.release()
+    disp.reset()
+    disp.clear()
+    config.module_exit()
+    exit()
 
 except IOError as e:
     print(e)
